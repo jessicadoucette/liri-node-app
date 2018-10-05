@@ -49,8 +49,6 @@ var liriInit = function(nextFunction, userInput) {
 			console.log("Preview Link: " + data.tracks.items[0].preview_url);
 			console.log("Album: " + data.tracks.items[0].album.name);
 		});
-
-
 	}
 
 	function movieThis(movie) {
@@ -58,9 +56,20 @@ var liriInit = function(nextFunction, userInput) {
 		var urlHit = "http://www.omdbapi.com/?i=tt3896198&apikey=73682e1e&t=" + movie + ""; 
 		
 		request(urlHit, function(error, response, body) {
-			body=JSON.parse(body); 
-			console.log(body.Year); 
-			console.log(body); 
+			//this cleans the code up
+			body = JSON.parse(body); 
+			//console logs
+			console.log("\n------\nMovie Title: " + body.Title);
+			console.log("Year: " + body.Year); 
+			console.log("IMBD Rating: " + body.imdbRating); 
+			console.log("Rotten Tomatoes Rating: " + body.Ratings[1].Value);
+			console.log("Country: " + body.Country); 
+			console.log("Language: " + body.Language); 
+			console.log("Plot: " + body.Plot); 
+			console.log("Actors: " + body.Actors + "\n------\n"); 
+			// console.log(body); 
 		}); 
 	
 	}; 
+
+
