@@ -4,8 +4,9 @@
 In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data. <strong>LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies.</strong>
 
 <h2>Node Packages Used</h2>
+[!node packages used](packages-used.png) 
 <ul>
-<li><a href = "https://www.npmjs.com/package/node-spotify-api">Node Spotify API</a><li>
+<li><a href = "https://www.npmjs.com/package/node-spotify-api">Node Spotify API</a></li>
 <li><a href="https://www.npmjs.com/package/request">Request</a></li>
 <li><a href = "http://www.omdbapi.com/">OMBD API</a></li>
 <li><a href = "http://www.artists.bandsintown.com/bandsintown-api">Bands in Town API</a></li>
