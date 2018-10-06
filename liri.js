@@ -10,8 +10,7 @@ var moment = require('moment');
 //create spotify object to query spotify API
 var spotify = new Spotify(keys.spotify);
 
-
-
+//initates switch/case function to guide user input to the correct function
 var liriInit = function (nextFunction, userInput) {
 	switch (nextFunction) {
 		case "concert-this":
@@ -31,53 +30,66 @@ var liriInit = function (nextFunction, userInput) {
 	}
 };
 
-// Function which takes in command line arguments and executes correct function accordingly
-
-
 // MAIN PROCESS
 // =====================================
 liriInit(process.argv[2], process.argv.slice(3).join(" "));
 
 function concertThis(artist) {
 	if (!artist) {
-		artist = 'Fleetwood Mac'; 
+		artist = 'Fleetwood Mac';
 	}
-	var urlHit = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"; 
+	var urlHit = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
 	request(urlHit, function (error, reponse, body) {
 		if (error) {
 			return console.log('Error occurred: ' + error);
-		}; 
+		};
 
-		var result = JSON.parse(body)[0]; 
+		var result = JSON.parse(body)[0];
 
-		console.log("\n------\nArtist: " + result.lineup); 
-		console.log("Venue: " + result.venue.name); 
-		console.log("Location: " + result.venue.city + ", " + result.venue.country)
-		console.log("Date: " + moment(result.datetime).format("MM/DD/YYYY") + "\n------\n");
+		var concertData = [
+		"\n------\nArtist: " + result.lineup,
+		"Venue: " + result.venue.name,
+		"Location: " + result.venue.city + ", " + result.venue.country,
+		"Date: " + moment(result.datetime).format("MM/DD/YYYY") + "\n------\n",
+		].join("\n\n"); 
+
+		fs.appendFile("log.txt", concertData, function (error) {
+			if (error) throw error;
+			console.log(concertData);
+		});
 	})
 }
 
 function spotifyThis(song) {
 	if (!song) {
-		song = 'The Sign'; 
+		song = 'The Sign';
 	}
 
 	spotify.search({ type: 'track', query: song }, function (error, data) {
 		if (error) {
 			return console.log('Error occurred: ' + error);
 		}
-		console.log("\n------\nArtist: " + data.tracks.items[0].album.artists[0].name);
-		console.log("Song: " + data.tracks.items[0].name);
-		console.log("Preview Link: " + data.tracks.items[0].preview_url);
-		console.log("Album: " + data.tracks.items[0].album.name + "\n------\n");
+
+		var songData = [
+
+		"\n------\nArtist: " + data.tracks.items[0].album.artists[0].name,
+		"Song: " + data.tracks.items[0].name,
+		"Preview Link: " + data.tracks.items[0].preview_url,
+		"Album: " + data.tracks.items[0].album.name + "\n------\n",
+		].join("\n\n"); 
+
+		fs.appendFile("log.txt", songData, function (error) {
+			if (error) throw error;
+			console.log(songData);
+		});
 	});
 }
 
 function movieThis(movie) {
 	if (!movie) {
 		movie = 'Mr. Nobody';
-}
+	}
 
 	var urlHit = "http://www.omdbapi.com/?i=tt3896198&apikey=73682e1e&t=" + movie + "";
 
@@ -88,23 +100,28 @@ function movieThis(movie) {
 		//this cleans the code up
 		body = JSON.parse(body);
 		//console logs
-		console.log("\n------\nMovie Title: " + body.Title);
-		console.log("Year: " + body.Year);
-		console.log("IMBD Rating: " + body.imdbRating);
-		console.log("Rotten Tomatoes Rating: " + body.Ratings[1].Value);
-		console.log("Country: " + body.Country);
-		console.log("Language: " + body.Language);
-		console.log("Plot: " + body.Plot);
-		console.log("Actors: " + body.Actors + "\n------\n");
+		var movieData = [
+
+		"\n------\nMovie Title: " + body.Title,
+		"Year: " + body.Year,
+		"IMBD Rating: " + body.imdbRating,
+		"Rotten Tomatoes Rating: " + body.Ratings[1].Value,
+		"Country: " + body.Country,
+		"Language: " + body.Language,
+		"Plot: " + body.Plot,
+		"Actors: " + body.Actors + "\n------\n",
+		].join("\n\n"); 
+
+		fs.appendFile("log.txt", movieData, function (error) {
+			if (error) throw error;
+			console.log(movieData);
+		});
 	});
-	// fs.appendFile("log.txt", actorData + divider, function(err) {
-	// 	if (err) throw err;
-	// 	console.log(actorData);
-	// });
+
 };
 
 function doWhatItSays() {
-	fs.readFile("random.txt", "utf8", function(error, data){
+	fs.readFile("random.txt", "utf8", function (error, data) {
 		if (error) throw error;
 		// Then split it by commas (to make it more readable)
 		var dataArr = data.split(",");
@@ -115,10 +132,10 @@ function doWhatItSays() {
 		} else if (dataArr[0] === "concert-this") {
 			var concerts = dataArr[1].slice(1, -1);
 			concertThis(concerts);
-		} else if(dataArr[0] === "movie-this") {
+		} else if (dataArr[0] === "movie-this") {
 			var movies = dataArr[1].slice(1, -1);
 			movieThis(movies);
-		} 
+		}
 	});
 }
 

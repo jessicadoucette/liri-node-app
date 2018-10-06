@@ -1,0 +1,37 @@
+------
+Movie Title: Hereditary
+
+Year: 2018
+
+IMBD Rating: 7.3
+
+Rotten Tomatoes Rating: 89%
+
+Country: USA
+
+Language: English
+
+Plot: After the family matriarch passes away, a grieving family is haunted by tragic and disturbing occurrences, and begin to unravel dark secrets.
+
+Actors: Alex Wolff, Gabriel Byrne, Toni Collette, Milly Shapiro
+------
+
+------
+Artist: The Rolling Stones
+
+Song: Gimme Shelter
+
+Preview Link: null
+
+Album: Let It Bleed
+------
+
+------
+Artist: Kurt Vile
+
+Venue: Grünspan
+
+Location: Hamburg-nord, Germany
+
+Date: 10/12/2018
+------
